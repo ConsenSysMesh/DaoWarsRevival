@@ -12,9 +12,9 @@
  * It was created @ ConsenSys Hacks by Daniel, Eric and Gonçalo
  * Nothing plays better than money
  */
-pragma solidity 0.4.18;
+pragma solidity ^0.4.19;
 
-import "bytes/BytesLib.sol";
+import "./bytes/BytesLib.sol";
 
 
 contract DaoWarsRevival {
@@ -25,7 +25,8 @@ contract DaoWarsRevival {
     uint public generation = 0;
 
     byte public mostVotedByte;
-    uint public mostVotedByteEther = -1;
+    uint public mostVotedByteEther;
+    uint public lastVoteTime;
 
     uint public constant VOTING_PERIOD = 6 hours;
 
@@ -67,13 +68,20 @@ contract DaoWarsRevival {
     function deposit() public payable {}
 
     function deploy() public view {
-        bytes memBytes = codeToDeploy;
+        bytes memory memBytes;
+        bytes memory codeLocal = codeToDeploy;
 
         address newBeastAddress;
 
         assembly {
+            // get location of free memory to store it
+            memBytes := mload(0x40)
+
             // get array length
-            size := memBytes
+            let size := mload(codeLocal)
+
+            // store the code
+            mstore(memBytes, size)
 
             // go into the data part
             memBytes := add(memBytes, 0x20)
@@ -86,9 +94,8 @@ contract DaoWarsRevival {
     }
 
     function checkThrow() public {
-        if (!this.unleashTheBeast()) {
-            beastAddress = oldBeastAddress;
-        }
+        require(this.call(bytes4(bytes32(keccak256("unleashTheBeast()")))));
+        beastAddress = oldBeastAddress;
     }
 
     function unleashTheBeast() public {

@@ -15,6 +15,8 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "bignumber.js": "^6.0.0",
+    "bluebird": "^3.5.1",
     "truffle": "4.0.1",
     "truffle-hdwallet-provider": "0.0.3"
   }
