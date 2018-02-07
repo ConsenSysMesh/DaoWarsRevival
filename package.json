@@ -1,0 +1,21 @@
+{
+  "name": "solidity-bytes-utils",
+  "version": "0.0.1",
+  "description": "Nothing plays better than money.",
+  "keywords": [
+    "ethereum",
+    "solidity",
+    "dao",
+    "wars"
+  ],
+  "authors": [
+    "Daniel Luca <daniel.luca@consensys.net>",
+    "Eric Tu <eric.tu@consensys.net>",
+    "Gonçalo Sá <goncalo.sa@consensys.net>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "truffle": "4.0.1",
+    "truffle-hdwallet-provider": "0.0.3"
+  }
+}
