@@ -12,5 +12,6 @@ secrets.json
 # ================================================
 build/*
 node_modules/*
+installed_contracts/*
 
 
